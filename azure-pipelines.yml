@@ -43,8 +43,9 @@ stages:
         namespace: 'dev'
         secretType: 'dockerRegistry'
         secretName: 'demo-secret'
-        
-        
+        dockerRegistryEndpoint: 'manual_dockerHub_connection'
+
+
     - task: KubernetesManifest@0
       displayName: 'Deploy to kubernetes'
       inputs:
