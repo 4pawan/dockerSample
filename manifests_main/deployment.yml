@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: nginxsample 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginxsample
+  template:
+    metadata:
+      labels:
+        app: nginxsample 
+    spec:
+      containers:
+        - name: nginxsample 
+          image: 4pwn/nginx_sample
+          ports:
+          - containerPort: 80
