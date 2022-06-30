@@ -21,13 +21,14 @@ stages:
       vmImage: ubuntu-latest
     steps:
     - task: Docker@2
-      displayName: Build an image
+      displayName: Build an docker image
       inputs:
         command: build
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
     - task: Docker@2
+      displayName: 'Deploy to Docker Hub'
       inputs:
         containerRegistry: 'manual_dockerHub_connection'
         repository: '4pwn/nginx_sample'
@@ -35,6 +36,7 @@ stages:
         Dockerfile: '**/Dockerfile'
     
     - task: KubernetesManifest@0
+      displayName: 'Create kubernetes Secret'
       inputs:
         action: 'createSecret'
         kubernetesServiceConnection: 'manual_kubernetes_connection'
@@ -42,7 +44,9 @@ stages:
         secretType: 'dockerRegistry'
         secretName: 'demo-secret'
         
+        
     - task: KubernetesManifest@0
+      displayName: 'Deploy to kubernetes'
       inputs:
         action: 'deploy'
         kubernetesServiceConnection: 'manual_kubernetes_connection'
