@@ -11,6 +11,7 @@ resources:
 
 variables:
   tag: '$(Build.BuildId)'
+  dockerHub_connection: 'manual_kubernetes_connection'
 
 stages:
 - stage: Build
@@ -40,18 +41,18 @@ stages:
       displayName: 'Create kubernetes Secret'
       inputs:
         action: 'createSecret'
-        kubernetesServiceConnection: 'manual_kubernetes_connection'
+        kubernetesServiceConnection: $(dockerHub_connection)
         namespace: 'dev'
         secretType: 'dockerRegistry'
         secretName: 'demo-secret'
-        dockerRegistryEndpoint: 'manual_dockerHub_connection'
+        dockerRegistryEndpoint: $(dockerHub_connection)
 
 
     - task: KubernetesManifest@0
       displayName: 'Deploy to kubernetes'
       inputs:
         action: 'deploy'
-        kubernetesServiceConnection: 'manual_kubernetes_connection'
+        kubernetesServiceConnection: $(dockerHub_connection)
         namespace: 'dev'
         manifests: |
                   $(Build.SourcesDirectory)/manifests_main/deployment.yml
