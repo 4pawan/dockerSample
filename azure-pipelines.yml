@@ -2,6 +2,8 @@
 # Build a Docker image
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
+
+
 trigger:
 - main
 
@@ -53,7 +55,7 @@ stages:
         kubernetesServiceConnection: 'manual_kubernetes_connection'
         namespace: 'dev'
         manifests: |
-                  $(Pipeline.Workspace)/manifests/deployment.yml
-                  $(Pipeline.Workspace)/manifests/service.yml
+                  $(Build.SourcesDirectory)/manifests/deployment.yml
+                  $(Build.SourcesDirectory)/manifests/service.yml
         containers: '4pwn/nginx_sample:$(Build.BuildId)'
         imagePullSecrets: 'demo-secret'
