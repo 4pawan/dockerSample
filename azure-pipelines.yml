@@ -11,7 +11,7 @@ resources:
 
 variables:
   tag: '$(Build.BuildId)'
-  dockerHub_connection: 'manual_kubernetes_connection'
+  dockerHub_connection: 'manual_kubernetes_connection1'
 
 stages:
 - stage: Build
@@ -32,7 +32,7 @@ stages:
     - task: Docker@2
       displayName: 'Deploy to Docker Hub'
       inputs:
-        containerRegistry: 'manual_dockerHub_connection'
+        containerRegistry: $(dockerHub_connection)
         repository: '4pwn/nginx_sample'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
