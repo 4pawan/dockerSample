@@ -47,5 +47,8 @@ stages:
         action: 'deploy'
         kubernetesServiceConnection: 'manual_kubernetes_connection'
         namespace: 'dev'
+        manifests: |
+                  $(Pipeline.Workspace)/manifests/deployment.yml
+                  $(Pipeline.Workspace)/manifests/service.yml
         containers: '4pwn/nginx_sample:$(Build.BuildId)'
         imagePullSecrets: 'demo-secret'
