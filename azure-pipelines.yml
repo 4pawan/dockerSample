@@ -33,3 +33,19 @@ stages:
         repository: '4pwn/nginx_sample'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
+    
+    - task: KubernetesManifest@0
+      inputs:
+        action: 'createSecret'
+        kubernetesServiceConnection: 'manual_kubernetes_connection'
+        namespace: 'dev'
+        secretType: 'dockerRegistry'
+        secretName: 'demo-secret'
+        
+    - task: KubernetesManifest@0
+      inputs:
+        action: 'deploy'
+        kubernetesServiceConnection: 'manual_kubernetes_connection'
+        namespace: 'dev'
+        containers: '4pwn/nginx_sample:$(Build.BuildId)'
+        imagePullSecrets: 'demo-secret'
