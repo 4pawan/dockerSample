@@ -30,6 +30,6 @@ stages:
     - task: Docker@2
       inputs:
         containerRegistry: 'manual_dockerHub_connection'
-        repository: 'nginx_sample'
+        repository: '4pwn/nginx_sample'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
