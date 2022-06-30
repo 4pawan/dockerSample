@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: newnginxsample 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: newnginxsample
+  template:
+    metadata:
+      labels:
+        app: newnginxsample 
+    spec:
+      containers:
+        - name: newnginxsample 
+          image: containerregistry421.azurecr.io/newnginxsample
+          ports:
+          - containerPort: 80
