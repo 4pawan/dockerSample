@@ -38,6 +38,14 @@ stages:
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
     
+    - task: Kubernetes@1
+      displayName: 'Login to Kubernetes Cluster'
+      inputs:
+        connectionType: 'Kubernetes Service Connection'
+        kubernetesServiceEndpoint: 'manual_kubernetes_connection'
+        namespace: 'dev'
+        command: 'login'
+
     - task: KubernetesManifest@0
       displayName: 'Create kubernetes Secret'
       inputs:
